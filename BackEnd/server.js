@@ -10,7 +10,7 @@ app.use(express.json());
 
 // --- ЛОГІКА ШЛЯХІВ ДЛЯ DOCKER ТА ЛОКАЛУ ---
 // Якщо ми в Docker, файли можуть бути на рівень вище або в тій же папці
-app.use(express.static(path.join(__dirname, '../')));
+app.use(express.static(path.join(__dirname, '../3d_tuning.html')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../3d_tuning.html'));
