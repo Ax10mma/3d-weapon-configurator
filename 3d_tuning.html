@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tune3D — Airsoft Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Css/style_tuning.css" />
+</head>
+<body>
+
+<div id="hud-top">
+  <div id="logo">TUNE<span>3D</span></div>
+  <div id="weapon-selection">
+    <button class="weapon-btn active" data-gun="ak74" data-src="ak-74__upgrade.glb">AK-74</button>
+    <button class="weapon-btn" data-gun="m4a1" data-src="/models/m4a1-base.glb">M4A1</button>
+  </div>
+  <div id="selected-info">ПЛАТФОРМА: <span id="gun-label">AK-74</span></div>
+</div>
+
+<canvas id="viewport"></canvas>
+
+<div id="panel">
+  <div id="panel-header">
+    <div id="tabs">
+      <button class="tab-btn active" data-category="scopes">🔭 Приціл</button>
+      <button class="tab-btn" data-category="grips">✊ Руків'я</button>
+      <button class="tab-btn" data-category="stocks">📐 Приклад</button>
+      <button class="tab-btn" data-category="lasers">🔦 Лазер</button>
+      <button class="tab-btn" data-category="magazines">📦 Магазин</button>
+      <button class="tab-btn" data-category="barrel">💨 Дуло</button>
+    </div>
+    <button id="toggle-panel" title="Згорнути панель">▼</button>
+  </div>
+
+  <div id="accessories-container">
+
+    <!-- ПРИЦІЛІ -->
+    <div class="accessory-group active-group" data-category="scopes">
+      <div class="accessory-card" data-accessory="holo_scope-v1" data-category="scopes">
+        <div class="card-img"><img src="acses_image/scopes/scope_EOtech.jpg" alt="EOTech" /></div>
+        <div class="card-info">
+          <p class="card-name">EOTech Holographic</p>
+          <p class="card-tag">Голографічний</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+      <div class="accessory-card" data-accessory="acog_scope-v1" data-category="scopes">
+        <div class="card-img"><img src="acses_image/scopes/scope_ACOG.jpg" alt="ACOG" /></div>
+        <div class="card-info">
+          <p class="card-name">ACOG 4×32</p>
+          <p class="card-tag">Оптичний</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+    </div>
+
+    <!-- РУКІВ'Я — імена збігаються з grips/light_grip-v1.glb і grips/tactical_grip.glb -->
+    <div class="accessory-group" data-category="grips">
+      <div class="accessory-card" data-accessory="light_grip-v1" data-category="grips">
+        <div class="card-img"><img src="acses_image/grips/light_grip.jpg" alt="Light Grip" /></div>
+        <div class="card-info">
+          <p class="card-name">Light Grip</p>
+          <p class="card-tag">Легке</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+      <div class="accessory-card" data-accessory="tactical_grip" data-category="grips">
+        <div class="card-img"><img src="acses_image/grips/grip_1.jpg" alt="Tactical Grip" /></div>
+        <div class="card-info">
+          <p class="card-name">Tactical Grip</p>
+          <p class="card-tag">Тактичне</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+    </div>
+
+    <!-- ПРИКЛАДИ — немає GLB файлів, залишаємо як є -->
+    <div class="accessory-group" data-category="stocks">
+      <div class="accessory-card" data-accessory="stock_pt1" data-category="stocks">
+        <div class="card-img"><img src="acses_image/stocks/stock_PT_1.jpg" alt="ПТ-1" /></div>
+        <div class="card-info">
+          <p class="card-name">Приклад ПТ-1</p>
+          <p class="card-tag">Складний</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+      <div class="accessory-card" data-accessory="stock_aps_black" data-category="stocks">
+        <div class="card-img"><img src="acses_image/stocks/stock_APS_black.jpg" alt="APS" /></div>
+        <div class="card-info">
+          <p class="card-name">APS Black</p>
+          <p class="card-tag">Телескопічний</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+    </div>
+
+    <!-- ЛАЗЕРИ — імена збігаються з lasers/flashlight-v1.glb і lasers/laser-v1.glb -->
+    <div class="accessory-group" data-category="lasers">
+      <div class="accessory-card" data-accessory="flashlight-v1" data-category="lasers">
+        <div class="card-img"><img src="acses_image/lights_lasers/light_GFC.jpg" alt="Flashlight" /></div>
+        <div class="card-info">
+          <p class="card-name">Flashlight</p>
+          <p class="card-tag">Ліхтар</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+      <div class="accessory-card" data-accessory="laser-v1" data-category="lasers">
+        <div class="card-img"><img src="acses_image/lights_lasers/laser_DBAL-A2.jpg" alt="Laser" /></div>
+        <div class="card-info">
+          <p class="card-name">Laser</p>
+          <p class="card-tag">Лазерний приціл</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+    </div>
+
+    <!-- МАГАЗИНИ — немає GLB файлів -->
+    <div class="accessory-group" data-category="magazines">
+      <div class="accessory-card" data-accessory="mag_meh_120" data-category="magazines">
+        <div class="card-img"><img src="acses_image/Mag/mag_meh_120rd.jpg" alt="120rd" /></div>
+        <div class="card-info">
+          <p class="card-name">Магазин 120 BBs</p>
+          <p class="card-tag">Механічний</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+      <div class="accessory-card" data-accessory="mag_bunk_500" data-category="magazines">
+        <div class="card-img"><img src="acses_image/Mag/mag_bunk_500bbs.jpg" alt="500rd" /></div>
+        <div class="card-info">
+          <p class="card-name">Магазин 500 BBs</p>
+          <p class="card-tag">Бункерний</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+    </div>
+
+    <!-- ДУЛО — імена збігаються з barrel/flash_hider-v1.glb і barrel/silencer-v1.glb -->
+    <div class="accessory-group" data-category="barrel">
+      <div class="accessory-card" data-accessory="flash_hider-v1" data-category="barrel">
+        <div class="card-img"><img src="acses_image/barrels/DTK_flash_hider.jpg" alt="Flash Hider" /></div>
+        <div class="card-info">
+          <p class="card-name">Flash Hider</p>
+          <p class="card-tag">Полум'ягасник</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+      <div class="accessory-card" data-accessory="silencer-v1" data-category="barrel">
+        <div class="card-img"><img src="acses_image/barrels/supresor.jpg" alt="Silencer" /></div>
+        <div class="card-info">
+          <p class="card-name">Silencer</p>
+          <p class="card-tag">Глушник</p>
+        </div>
+        <div class="card-check">✓</div>
+      </div>
+    </div>
+
+  </div><!-- /accessories-container -->
+
+  <div id="panel-footer">
+    <div id="selected-summary">Нічого не обрано</div>
+    <button id="order-btn">Оформити замовлення →</button>
+  </div>
+</div>
+
+<div id="loading-screen">
+  <div id="loading-inner">
+    <div id="loading-logo">TUNE<span>3D</span></div>
+    <div id="loading-bar-wrap"><div id="loading-bar"></div></div>
+    <div id="loading-text">Завантаження моделі...</div>
+  </div>
+</div>
+
+<script type="module" src="/JavaScript/3d_tuning.js"></script>
+</body>
+</html>

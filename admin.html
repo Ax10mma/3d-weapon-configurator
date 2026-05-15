@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>TUNE3D — Адмін Панель</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #00ffcc; --bg: #0a0a0f; --surface: #161b22; }
+        body { background: var(--bg); color: #e0e0e0; font-family: 'Rajdhani', sans-serif; padding: 40px; }
+        h1 { font-family: 'Share Tech Mono', monospace; color: white; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; background: var(--surface); border-radius: 8px; overflow: hidden; }
+        th { background: rgba(0, 255, 204, 0.1); color: var(--accent); text-align: left; padding: 15px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        tr:hover { background: rgba(255,255,255,0.02); }
+        .price { color: var(--accent); font-family: 'Share Tech Mono', monospace; }
+        .items-list { font-size: 0.85rem; color: #888; }
+        .status { padding: 4px 8px; background: var(--accent); color: black; border-radius: 4px; font-weight: bold; font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+    <h1>TUNE<span>3D</span> // Менеджер замовлень</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Клієнт</th>
+                <th>Зброя</th>
+                <th>Конфігурація</th>
+                <th>Сума</th>
+            </tr>
+        </thead>
+        <tbody id="orders-list">
+            </tbody>
+    </table>
+
+    <script>
+        async function fetchOrders() {
+            try {
+                const response = await fetch('http://localhost:3000/api/admin/orders');
+                const orders = await response.json();
+                const container = document.getElementById('orders-list');
+                
+                container.innerHTML = orders.map(order => `
+                    <tr>
+                        <td>${new Date(order.createdAt).toLocaleString()}</td>
+                        <td>
+                            <strong>${order.customer.name}</strong><br>
+                            <span style="font-size:0.8rem; color:#666">${order.customer.phone}</span>
+                        </td>
+                        <td><span class="status">${order.weapon.toUpperCase()}</span></td>
+                        <td class="items-list">${order.items.join(', ') || 'Без допів'}</td>
+                        <td class="price">${order.totalPrice.toLocaleString()} грн</td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error("Помилка завантаження замовлень:", err);
+            }
+        }
+
+        // Оновлювати кожні 10 секунд
+        fetchOrders();
+        setInterval(fetchOrders, 10000);
+    </script>
+</body>
+</html>
